@@ -7,3 +7,7 @@ parts/
 eggs/
 develop-eggs/
 *.egg-info/
+
+dist/
+build/
+_build/

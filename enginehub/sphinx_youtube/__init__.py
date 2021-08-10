@@ -1,4 +1,4 @@
-#-*- coding:utf-8 -*-
+3#-*- coding:utf-8 -*-
 u'''
 embedding youtube video to sphinx
 
@@ -30,10 +30,14 @@ finally, build your sphinx project.
 
 '''
 
-__version__ = '0.2.2'
+__version__ = '0.2.3'
 __author__ = '@shomah4a'
 __license__ = 'LGPLv3'
 
+
+def skip_visit(_, _ignore2):
+    from docutils.nodes import SkipNode
+    raise SkipNode()
 
 
 def setup(app):
@@ -41,6 +45,10 @@ def setup(app):
     from . import youtube
 
     app.add_node(youtube.youtube,
-                 html=(youtube.visit, youtube.depart))
+                 html=(youtube.visit, youtube.depart),
+                 latex=(skip_visit, None),
+                 text=(skip_visit, None),
+                 man=(skip_visit, None))
+
     app.add_directive('youtube', youtube.YoutubeDirective)
     return {'parallel_read_safe': True}
