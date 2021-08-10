@@ -4,11 +4,11 @@ embedding youtube video to sphinx
 
 usage:
 
-First of all, add `sphinxcontrib.youtube` to sphinx extension list in conf.py
+First of all, add `enginehub.youtube` to sphinx extension list in conf.py
 
 .. code-block:: python
 
-   extensions = ['sphinxcontrib.yt']
+   extensions = ['enginehub.sphinx_youtube']
 
 
 then use `youtube` directive.

@@ -34,8 +34,11 @@ def visit(self, node):
 
     video_id = node.video_id
     url = u'https://www.youtube.com/embed/{0}'.format(video_id)
-    tag = u'''<iframe width="640" height="360" style="margin-bottom: 25px" src="{0}" frameborder="0" allowfullscreen="1">&nbsp;</iframe>'''.format(
-        url)
+    tag = u'''
+        <div style="text-align: center" class="sphinx_youtube-embed no-print">
+            <iframe width="640" height="360" style="margin-bottom: 25px" src="{0}" frameborder="0" allowfullscreen="1">&nbsp;</iframe>
+        </div>
+    '''.format(url)
 
     self.body.append(tag)
 
