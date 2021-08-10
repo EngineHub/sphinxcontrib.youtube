@@ -11,3 +11,4 @@ develop-eggs/
 dist/
 build/
 _build/
+.idea/
