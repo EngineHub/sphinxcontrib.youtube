@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 
 import setuptools
-from enginehub import sphinx_youtube as pkg
+from src.enginehub import sphinx_youtube as pkg
 
 setuptools.setup(
     name='enginehub.sphinx_youtube',
