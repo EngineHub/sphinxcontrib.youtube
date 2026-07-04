@@ -39,7 +39,7 @@ jobs:
         run: uv publish
       - name: Start next dev cycle
         run: |
-          uv version --no-sync --bump minor --bump dev
+          uv version --no-sync --bump patch --bump dev
           next="$(uv version --no-sync --short)"
           git commit -am "Bump version to $next"
           git push origin "HEAD:${{ github.ref_name }}" "v${{ steps.prepare.outputs.release }}"
