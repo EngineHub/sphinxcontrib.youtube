@@ -1,12 +1,6 @@
 #-*- coding:utf-8 -*-
 
-#Import urlparse in Python 2 or urllib.parse in Python 3
-
-try:
-    import urlparse
-
-except ImportError:
-    import urllib.parse as urlparse
+import urllib.parse as urlparse
 
 from docutils import nodes
 from docutils.parsers import rst
