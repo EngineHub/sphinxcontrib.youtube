@@ -1,0 +1,45 @@
+name: "Release"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+    steps:
+      - name: Ensure default branch
+        run: |
+          if [ "${{ github.ref_name }}" != "${{ github.event.repository.default_branch }}" ]; then
+            echo "::error::Release must run on the default branch (${{ github.event.repository.default_branch }}), got ${{ github.ref_name }}."
+            exit 1
+          fi
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Install uv
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+      - name: Prepare release
+        id: prepare
+        env:
+          EH_BOT_GIT_USER_NAME: ${{ vars.EH_BOT_GIT_USER_NAME }}
+          EH_BOT_GIT_EMAIL: ${{ vars.EH_BOT_GIT_EMAIL }}
+        run: |
+          git config user.name "$EH_BOT_GIT_USER_NAME"
+          git config user.email "$EH_BOT_GIT_EMAIL"
+          uv version --no-sync --bump stable
+          release="$(uv version --no-sync --short)"
+          echo "release=$release" >> "$GITHUB_OUTPUT"
+          git commit -am "Release v$release"
+          git tag "v$release"
+      - name: Build
+        run: uv build
+      - name: Publish
+        run: uv publish
+      - name: Start next dev cycle
+        run: |
+          uv version --no-sync --bump minor --bump dev
+          next="$(uv version --no-sync --short)"
+          git commit -am "Bump version to $next"
+          git push origin "HEAD:${{ github.ref_name }}" "v${{ steps.prepare.outputs.release }}"

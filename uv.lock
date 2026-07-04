@@ -13,8 +13,8 @@ wheels = [
 
 [[package]]
 name = "enginehub-sphinx-youtube"
-version = "0.1.0"
-source = { virtual = "." }
+version = "0.3.0.dev1"
+source = { editable = "." }
 dependencies = [
     { name = "docutils" },
 ]
